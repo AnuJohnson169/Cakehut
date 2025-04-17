@@ -1,13 +1,11 @@
-import Cakelist from "./Cakelist"
+import CakeList from "./CakeList"
 import Carousel from "./Carousel"
-import Signup from "./Signup"
 
 function Home() {
     return (
-        <div>
-            <Signup />
-            <Carousel />
-            <Cakelist />
+        <div> 
+            <Carousel /> 
+            <CakeList />
         </div>
     )
 }

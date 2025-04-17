@@ -1,34 +1,38 @@
-function Addcake({listofcakes}) {
+function AddCake({newCake}) {
 
-    var name,price,tag,image
+    var name,flavor,price,tag,image
     var cakes = []
     
-    function Addcakename(event) {
+    function AddCakeName(event) {
         name = event.target.value
     }
 
-    function Addcakeprice(event) {
+    function AddCakeFlavor(event) {
+        flavor = event.target.value
+    }
+
+    function AddCakePrice(event) {
         price = event.target.value
     }
 
-    function Addcaketag(event) {
+    function AddCakeTag(event) {
         tag = event.target.value
     }
 
-    function Addcakeimage(event) {
+    function AddCakeImage(event) {
         image = event.target.value
     }
 
     function AddNewCake() {
-        cakes.push({name,price,image,tag})
-        listofcakes([...cakes])
+        cakes.push({id:Date.now(),name,price,image,tag})
+        newCake([...cakes])
     }
 
     return (
         <div>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" 
             data-bs-target="#exampleModal">Add Cake</button>
-            <div class="modal fade" id="exampleModal"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="exampleModal"  aria-labelledby="exampleModalLabel">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -40,22 +44,27 @@ function Addcake({listofcakes}) {
                                 <div class="mb-3">
                                     <label  class="col-form-label">Name</label>
                                     <input type="text" class="form-control" id="recipient-name"
-                                       value={name} onChange={Addcakename}/>
+                                       value={name} onChange={AddCakeName}/>
+                                </div>
+                                <div class="mb-3">
+                                    <label  class="col-form-label">Flavor</label>
+                                    <input class="form-control" id="message-text" 
+                                        value={flavor} onChange={AddCakeFlavor}/>
                                 </div>
                                 <div class="mb-3">
                                     <label  class="col-form-label">Price</label>
                                     <input class="form-control" id="message-text" 
-                                        value={price} onChange={Addcakeprice}/>
+                                        value={price} onChange={AddCakePrice}/>
                                 </div>
                                 <div class="mb-3">
                                     <label  class="col-form-label">Tag</label>
                                     <input class="form-control" id="tag" 
-                                        value={tag} onChange={Addcaketag}/>
+                                        value={tag} onChange={AddCakeTag}/>
                                 </div>
                                 <div class="mb-3">
                                     <label  class="col-form-label">image_url</label>
                                     <input class="form-control" id="image-url"
-                                        value={image} onChange={Addcakeimage}/>
+                                        value={image} onChange={AddCakeImage}/>
                                 </div>
                             </form>
                         </div>
@@ -70,4 +79,4 @@ function Addcake({listofcakes}) {
     )
 }
 
-export default Addcake
+export default AddCake

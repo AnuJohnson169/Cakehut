@@ -1,37 +1,47 @@
-import { useState } from "react"
-import Addcake from "./Addcake"
+import { useEffect, useState } from "react"
 import Cake from "./Cake"
+import axios from "axios"
+import Loader from "./Loader"
 
-function Cakelist() {
-    
-    var [cakes,setCakelist] = useState( 
-    [
-        { name: "Choco Chip Truffle", price: 1195, image: 'chocolate truffle.jpg', tag: "Best Seller" },
-        { name: "Red Velvet", price: 750, image: 'red velvet.jpg' },
-        { name: "White Forest", price: 550, image: 'white forest.jpg' },
-        { name: "Ferrero Rocher", price: 1340, image: 'ferrero rocher.jpg', tag: "Must Try" },
-        { name: "Creamy Rasamalai", price: 895, image: 'creamy rasamalai.jpg' },
-        { name: "Chocoloate Truffle", price: 700, image: 'truffle.jpg' }
-    ])
+function CakeList() {
+    var [cakes, SetCakeList] = useState([])
+    var cakes = [
+        { id: 1, name: "Choco Chip Truffle", price: 1195, image: 'chocolate truffle.jpg', tag: "Best Seller" },
+        { id: 2, name: "Red Velvet", price: 750, image: 'red velvet.jpg' },
+        { id: 3, name: "White Forest", price: 550, image: 'white forest.jpg' },
+        { id: 4, name: "Ferrero Rocher", price: 1340, image: 'ferrero rocher.jpg', tag: "Must Try" },
+        { id: 5, name: "Creamy Rasamalai", price: 895, image: 'creamy rasamalai.jpg' },
+        { id: 6, name: "Chocoloate Truffle", price: 700, image: 'truffle.jpg' }
+    ]
 
-    function Updatecakelist(morecakes) {
-        setCakelist([...cakes,...morecakes])
-    }
+    useEffect(() => {
+        axios({
+            url: import.meta.env.VITE_APIURL + "/allcakes",
+            method: "get"
+        }).then((response) => {
+            SetCakeList(response.data.data)
+        }).catch((error) => {
+            console.log(error, "error")
+        })
+    },[])
 
-    return (
-        <div>
-            <Addcake listofcakes={Updatecakelist} />
-            <div class="row">
-                {
-                    cakes.map((each, index) => {
-                        return (
-                            <Cake key={index} {...each} />
-                        )
-                    })
-                }
+    if (cakes.length) {
+        return (
+            <div>
+                <div class="row me-2">
+                    {
+                        cakes.map((each, index) => {
+                            return (
+                                <Cake key={index} {...each} />
+                            )
+                        })
+                    }
+                </div>
             </div>
-        </div>
-    )
+        )
+    } else {
+        return <Loader />
+    }
 }
 
-export default Cakelist
+export default CakeList
