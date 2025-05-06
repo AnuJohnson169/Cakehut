@@ -48,6 +48,8 @@ function Navbar() {
                 </div>
             </nav>
         </div>
+            </nav>
+        </div>
     )
 }
 
