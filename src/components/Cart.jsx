@@ -2,21 +2,24 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import Loader from "./Loader"
+import { useDispatch, useSelector } from "react-redux"
 
 function Cart() {
     var [cart, SetCart] = useState([])
+    var cartCount = useSelector(state => state.CartReducer.cartCount) 
+    //(or this) var cartCount = cakeStore.getState().CartReducer.cartCount
+    var cartItems = useSelector(state => state.CartReducer.cartItems)
+
+    var dispatch = useDispatch()
+
     useEffect(() => {
-        axios({
-            url: import.meta.env.VITE_APIURL + "/cakecart",
-            method: "get",
-            headers: {
-                Authorization: localStorage.token
-            }
-        }).then((response) => {
-            console.log(response, "response")
-        }).catch((error) => {
-            console.log(error, "error")
-        })
+        if(!localStorage.token) {
+            Navigate("/login")
+        } else {
+            dispatch({
+                type: "FETCH_CART_ITEMS"
+            })
+        }
     }, [])
 
 
@@ -37,11 +40,12 @@ function Cart() {
         })
     }
 
-    if (cart.length) {
+    if (cartItems) {
         return (
             <div>
+                <h2>Total items in cart {cartCount}</h2>
                 {
-                    cart.map((item,index) => {
+                    cartItems.map((item,index) => {
                         return (
                             <div className="cart-item">
                                 <div>{item.image}</div>
@@ -54,10 +58,11 @@ function Cart() {
                     })
                 }
                 <h3>Continue shopping <Link to="/">here</Link></h3>
+                <Link to="/checkout" className="btn btn-warning">Checkout</Link>
             </div>
         )
     } else {
-        <Loader />
+        return <Loader />
     }
 }
 

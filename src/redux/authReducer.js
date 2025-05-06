@@ -1,4 +1,6 @@
-function AuthReducer(state={},action) {
+function AuthReducer(state={
+    isLoggedin: localStorage.token ? true: false
+},action) {
     switch(action.type) {
         case "LOGIN_SUCCESS": {
             state = {...state},

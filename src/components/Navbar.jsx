@@ -5,7 +5,8 @@ function Navbar() {
 
     var cakeName
     var navigate = useNavigate()
-    var LoggedIn = useSelector(state => state.isloggedin)
+    var loggedIn = useSelector(state => state.isLoggedin)
+    var cartCount = useSelector(state => state.cartCount)
 
     function SearchCake(event) {
         cakeName = event.target.value
@@ -23,7 +24,7 @@ function Navbar() {
             <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <Link class="navbar-brand" to="/">Cake Hut</Link>
-                    {LoggedIn && <Link to="/adminpanel">
+                    {loggedIn && <Link to="/adminpanel">
                             <button class="btn me-2" type="button">Admin Panel</button>
                         </Link>}
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,13 +37,13 @@ function Navbar() {
                             <input class="form-control me-2" onChange={SearchCake} type="search" placeholder="Search" aria-label="Search" />
                             <button class="btn btn-outline-success me-2" onClick={FindCake} type="button">Search</button>
                         </form>
-                        {!LoggedIn && <Link to="/login">
+                        {!loggedIn && <Link to="/login">
                             <button class="btn btn-info me-2" type="button">Login</button>
                         </Link>}
-                        {LoggedIn && <Link to="/cart">
-                            <button class="btn btn-info me-2" type="button">Cart</button>
+                        {loggedIn && <Link to="/cart">
+                            <button class="btn btn-info me-2" type="button">Cart {cartCount}</button>
                         </Link>}
-                        {LoggedIn && <button class="btn btn-danger" onClick={LogoutUser} type="button">Logout</button> }
+                        {loggedIn && <button class="btn btn-danger" onClick={LogoutUser} type="button">Logout</button> }
                     </div>
                 </div>
             </nav>

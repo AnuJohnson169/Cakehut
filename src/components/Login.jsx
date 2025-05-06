@@ -27,9 +27,11 @@ function Login({ LoggedIn }) {
         }).then((response) => {
             console.log(response, "res")
             localStorage.token = response.data.token
-            if (response.data.password === password && response.data.email == email) {
+            if (response.data.password === password && response.data.email == email) {//if (response.data.token)
                 LoggedIn()
-                dispatch({type: "LOGIN_SUCCESS"})
+                dispatch({
+                    type: "LOGIN_SUCCESS"
+                })
                 navigate("/")
             } else {
                 SetLoginCredentials(false)

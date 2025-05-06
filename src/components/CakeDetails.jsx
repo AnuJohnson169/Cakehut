@@ -2,12 +2,13 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import Loader from "./Loader"
+import { useDispatch } from "react-redux"
 
 function CakeDetails() {
     var [cakeDetails,SetCakeDetails] = useState()
     var params = useParams()
     var cakeId = params.id
-
+    var dispatch = useDispatch()
     useEffect(() => {
         axios({
             url: import.meta.env.VITE_APIURL+ "/cake"+cakeId,
@@ -37,6 +38,10 @@ function CakeDetails() {
             }
         }).then((response) => {
             console.log(response,"resss")
+            dispatch({
+                type: "ADD_TO_CART_SUCCESS"
+            })
+
         }).catch((error) => {
             console.log(error,"error")
         })

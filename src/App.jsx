@@ -12,6 +12,10 @@ import SearchCake from './components/SearchCake.jsx'
 import AddCake from './components/AddCake.jsx'
 import PathNotFound from './components/Pathnotfound.jsx'
 import ForgotPassword from './components/ForgotPassword.jsx'
+import Checkout from './components/Checkout.jsx'
+import AddAddress from './components/AddAddress.jsx'
+import Payment from './components/Payment.jsx'
+import Summary from './components/Summary.jsx'
 
 function App() {  
 
@@ -35,6 +39,11 @@ function App() {
           <Route path="details/:id" element={<CakeDetails />} />
           <Route path="cart" element={<Cart />} />
           <Route path="forgotpassword" element={<ForgotPassword />} />
+          <Route path="checkout" element={<Checkout />} >
+            <Route path="addaddress" element={<AddAddress />} />
+            <Route path="payment" element={<Payment />} />
+            <Route path="summary" element={<Summary />} />
+          </Route>
           <Route path="*" element={<PathNotFound />} />
         </Routes>
       </BrowserRouter>
